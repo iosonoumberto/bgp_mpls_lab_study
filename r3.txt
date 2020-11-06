@@ -1,5 +1,5 @@
 <configuration-text>
-## Last changed: 2020-11-06 05:06:24 PST
+## Last changed: 2020-11-06 05:38:10 PST
 version 17.2R2.5;
 groups {
     member0 {
@@ -162,6 +162,7 @@ chassis {
 }
 interfaces {
     ge-0/0/0 {
+        description "to r1";
         unit 0 {
             family inet {
                 address 192.168.13.1/31;

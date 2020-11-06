@@ -77,6 +77,7 @@ set apply-groups member0
 set system ports console log-out-on-disconnect
 set system services netconf ssh
 set chassis aggregated-devices ethernet device-count 100
+set interfaces ge-0/0/0 description "to r1"
 set interfaces ge-0/0/0 unit 0 family inet address 192.168.13.1/31
 set interfaces ge-0/0/0 unit 0 family mpls
 set interfaces ge-0/0/4 gigether-options 802.3ad ae35
