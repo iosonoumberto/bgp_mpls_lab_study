@@ -1,0 +1,280 @@
+<configuration-text>
+## Last changed: 2020-11-11 01:11:17 PST
+version 17.2R2.5;
+groups {
+    member0 {
+        system {
+            host-name r6_re;
+            backup-router 10.102.255.254;
+        }
+        interfaces {
+            fxp0 {
+                unit 0 {
+                    family inet {
+                        address 10.102.164.7/20;
+                    }
+                }
+            }
+        }
+    }
+    global {
+        system {
+            domain-name englab.juniper.net;
+            domain-search [ englab.juniper.net juniper.net jnpr.net spglab.juniper.net ];
+            time-zone America/Los_Angeles;
+            debugger-on-break;
+            dump-on-panic;
+            authentication-order [ password radius ];
+            root-authentication {
+                encrypted-password "$1$ZUlES4dp$OUwWo1g7cLoV/aMWpHUnC/";
+            }
+            name-server {
+                10.102.149.51;
+                10.102.149.52;
+            }
+            radius-server {
+                192.168.69.162 secret "$9$iHfz9Cu0BRQznCApIRSreWxNVw2GjkKM4JGimP";
+                192.168.64.10 secret "$9$TQ/t1IcSrKAt0IRheK8X7VYgaZDm5zNdiqmTn6";
+                192.168.4.240 secret "$9$GqUqf3nCApOPfQn690ORhSeWL7-boZDylsgoGHk";
+            }
+            login {
+                class wheel {
+                    permissions snmp;
+                }
+                user regress {
+                    uid 928;
+                    class superuser;
+                    shell csh;
+                    authentication {
+                        encrypted-password "$1$kPU..$w.4FGRAGanJ8U4Yq6sbj7.";
+                    }
+                }
+                user remote {
+                    uid 2000;
+                    class super-user;
+                }
+            }
+            services {
+                finger;
+                ftp;
+                rlogin;
+                ssh {
+                    root-login allow;
+                }
+                telnet;
+                xnm-clear-text;
+            }
+            syslog {
+                host log {
+                    kernel info;
+                    any notice;
+                    pfe info;
+                    interactive-commands any;
+                }
+                file messages {
+                    kernel info;
+                    any notice;
+                    authorization info;
+                    pfe info;
+                    archive world-readable;
+                }
+                file security {
+                    interactive-commands any;
+                    archive world-readable;
+                }
+            }
+            processes {
+                routing enable;
+                ntp enable;
+                management enable;
+                watchdog enable;
+                snmp enable;
+                inet-process enable;
+                mib-process enable;
+            }
+            ntp {
+                boot-server 172.21.200.60;
+                server 172.21.200.60;
+                server 172.29.131.60;
+                server 172.29.135.60;
+            }
+        }
+        chassis {
+            dump-on-panic;
+        }
+        snmp {
+            location "Systest lab";
+            contact "Jay Lloyd";
+            interface fxp0.0;
+            community public {
+                authorization read-only;
+            }
+            community private {
+                authorization read-write;
+            }
+        }
+        routing-options {
+            static {
+                /* corperate and alpha net */
+                route 172.16.0.0/12 {
+                    next-hop 10.102.255.254;
+                    retain;
+                    no-readvertise;
+                }
+                /* eng lab nets */
+                route 192.168.0.0/16 {
+                    next-hop 10.102.255.254;
+                    retain;
+                    no-readvertise;
+                }
+                route 10.0.0.0/8 {
+                    next-hop 10.102.255.254;
+                    retain;
+                    no-readvertise;
+                }
+                /* ntp server */
+                route 66.129.255.62/32 {
+                    next-hop 10.102.255.254;
+                    retain;
+                    no-readvertise;
+                }
+            }
+        }
+    }
+}
+apply-groups [ global member0 ];
+system {
+    ports {
+        console log-out-on-disconnect;
+    }
+    services {
+        netconf {
+            ssh;
+        }
+    }
+}
+chassis {
+    aggregated-devices {
+        ethernet {
+            device-count 100;
+        }
+    }
+}
+interfaces {
+    ge-0/0/0 {
+        gigether-options {
+            802.3ad ae46;
+        }
+    }
+    ge-0/0/1 {
+        gigether-options {
+            802.3ad ae46;
+        }
+    }
+    ge-0/0/2 {
+        gigether-options {
+            802.3ad ae36;
+        }
+    }
+    ge-0/0/3 {
+        gigether-options {
+            802.3ad ae36;
+        }
+    }
+    ge-0/0/4 {
+        gigether-options {
+            802.3ad ae56;
+        }
+    }
+    ge-0/0/5 {
+        gigether-options {
+            802.3ad ae56;
+        }
+    }
+    ge-0/0/6 {
+        unit 0 {
+            family inet {
+                address 192.168.67.0/31;
+            }
+            family mpls;
+        }
+    }
+    ae36 {
+        aggregated-ether-options {
+            lacp {
+                active;
+                periodic fast;
+            }
+        }
+        unit 0 {
+            family inet {
+                address 192.168.36.1/31;
+            }
+            family mpls;
+        }
+    }
+    ae46 {
+        aggregated-ether-options {
+            lacp {
+                active;
+                periodic fast;
+            }
+        }
+        unit 0 {
+            family inet {
+                address 192.168.46.1/31;
+            }
+            family mpls;
+        }
+    }
+    ae56 {
+        aggregated-ether-options {
+            lacp {
+                active;
+                periodic fast;
+            }
+        }
+        unit 0 {
+            family inet {
+                address 192.168.56.1/31;
+            }
+            family mpls;
+        }
+    }
+    lo0 {
+        unit 0 {
+            family inet {
+                address 6.6.6.6/32;
+            }
+        }
+    }
+}
+routing-options {
+    autonomous-system 100;
+}
+protocols {
+    rsvp {
+        interface ge-0/0/6.0;
+        interface ae36.0;
+        interface ae46.0;
+    }
+    mpls {
+        interface ge-0/0/6.0;
+        interface ae36.0;
+        interface ae46.0;
+        interface ae56.0;
+    }
+    ospf {
+        traffic-engineering;
+        area 0.0.0.0 {
+            interface ge-0/0/6.0;
+            interface ae36.0;
+            interface ae46.0;
+            interface ae56.0;
+            interface lo0.0 {
+                passive;
+            }
+        }
+    }
+}
+</configuration-text>
