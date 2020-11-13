@@ -1,5 +1,5 @@
 <configuration-text>
-## Last changed: 2020-11-13 00:47:04 PST
+## Last changed: 2020-11-13 01:07:42 PST
 version 17.2R2.5;
 groups {
     member0 {
@@ -266,7 +266,7 @@ protocols {
             link-protection {
                 bypass r7 {
                     to 5.5.5.5;
-                    bandwidth 700m;
+                    bandwidth 0;
                     path {
                         6.6.6.6 strict;
                     }

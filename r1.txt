@@ -1,5 +1,5 @@
 <configuration-text>
-## Last changed: 2020-11-13 00:55:16 PST
+## Last changed: 2020-11-13 05:46:34 PST
 version 17.2R2.5;
 groups {
     re0 {
@@ -214,7 +214,7 @@ protocols {
         }
         label-switched-path 7b {
             to 7.7.7.7;
-            bandwidth 150m;
+            bandwidth 140m;
             link-protection;
             primary r3;
         }

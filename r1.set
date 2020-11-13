@@ -95,7 +95,7 @@ set protocols mpls label-switched-path 7a bandwidth 600m
 set protocols mpls label-switched-path 7a link-protection
 set protocols mpls label-switched-path 7a primary r3
 set protocols mpls label-switched-path 7b to 7.7.7.7
-set protocols mpls label-switched-path 7b bandwidth 150m
+set protocols mpls label-switched-path 7b bandwidth 140m
 set protocols mpls label-switched-path 7b link-protection
 set protocols mpls label-switched-path 7b primary r3
 set protocols mpls path r4 4.4.4.4 strict

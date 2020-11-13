@@ -104,7 +104,7 @@ set protocols rsvp traceoptions flag all
 set protocols rsvp interface ge-0/0/0.0
 set protocols rsvp interface ae34.0 link-protection
 set protocols rsvp interface ae35.0 link-protection bypass r7 to 5.5.5.5
-set protocols rsvp interface ae35.0 link-protection bypass r7 bandwidth 700m
+set protocols rsvp interface ae35.0 link-protection bypass r7 bandwidth 0
 set protocols rsvp interface ae35.0 link-protection bypass r7 path 6.6.6.6 strict
 set protocols rsvp interface ae36.0
 set protocols mpls traceoptions file mplstr
