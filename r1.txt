@@ -1,5 +1,5 @@
 <configuration-text>
-## Last changed: 2020-11-06 05:01:28 PST
+## Last changed: 2020-11-16 01:27:48 PST
 version 17.2R2.5;
 groups {
     re0 {
@@ -202,13 +202,6 @@ routing-options {
 protocols {
     mpls {
         no-cspf;
-        label-switched-path R7 {
-            to 7.7.7.7;
-            primary r4;
-        }
-        path r4 {
-            4.4.4.4 strict;
-        }
         interface ge-0/0/0.0;
         interface ge-0/0/2.0;
     }
